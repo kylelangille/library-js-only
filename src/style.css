@@ -39,6 +39,8 @@
   left: 50%;
   display: none;
   transform: translate(-50%, -50%);
+  height: 15rem;
+  background-color: #ccc;
 }
 
 .add-book--form.active {
@@ -69,6 +71,7 @@
   padding: 0.7rem;
   width: 8rem;
   margin: auto;
+  margin-top: 2rem;
 }
 
 .overlay {
