@@ -6,5 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+      <h1 class="main-heading">📚MyLibrary</h1>
+    </header>
+    <main>
+      <div class="overlay"></div>
+      <section class="read-books">
+        <h2 class="container-heading">Books I've read</h2>
+        <div class="read-books--container"></div>
+        <button class="add-read-book--btn">Add new book</button>
+      </section>
+      <section class="unread-books">
+        <h2 class="container-heading">Books I want to read</h2>
+        <div class="unread-books--container"></div>
+        <button class="add-unread-book--btn">Add new book</button>
+      </section>
+    </main>
+    <div class="add-book--form">
+      <div class="form-close--btn">✖</div>
+      <form>
+        <label for="title">Title:</label>
+        <input name="title" type="text" />
+        <label for="author">Author:</label>
+        <input name="author" type="text" />
+        <button class="form--btn">Add book</button>
+      </form>
+    </div>
+    <script src="src/script.js"></script>
+  </body>
 </html>
