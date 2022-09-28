@@ -30,7 +30,7 @@
 /*****     FORM         *****/
 /****************************/
 
-.add-book--form {
+.add-read-book--form {
   border: 2px solid #333;
   border-radius: 9px;
   width: 15rem;
@@ -43,7 +43,7 @@
   background-color: #ccc;
 }
 
-.add-book--form.active {
+.add-read-book--form.active {
   display: block;
 }
 
@@ -52,26 +52,31 @@
   cursor: pointer;
 }
 
-.add-book--form form {
+.add-read-book--form form {
   display: flex;
   flex-direction: column;
 }
 
-.add-book--form label {
+#add-read-book-title--label,
+#add-read-book-author--label {
   margin-left: 1rem;
+  font-weight: 500;
 }
 
-.add-book--form form input {
+#add-read-book-title--input,
+#add-read-book-author--input {
   width: 12.6rem;
   height: 2.4rem;
   margin: auto;
 }
 
-.form--btn {
+.add-read-book--form--btn {
   padding: 0.7rem;
   width: 8rem;
   margin: auto;
   margin-top: 2rem;
+  border-radius: 9px;
+  border: 1px solid #333;
 }
 
 .overlay {

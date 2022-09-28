@@ -2,7 +2,7 @@
 const overlay = document.querySelector(".overlay");
 const addReadBookBtn = document.querySelector(".add-read-book--btn");
 const addUnreadBookBtn = document.querySelector(".add-unread-book--btn");
-const addBookForm = document.querySelector(".add-book--form");
+const addBookForm = document.querySelector(".add-read-book--form");
 const closeFormBtn = document.querySelector(".form-close--btn");
 
 class Book {
