@@ -1,9 +1,11 @@
 "use strict";
 const overlay = document.querySelector(".overlay");
 const addReadBookBtn = document.getElementById("add-read-book--btn");
-const addUnreadBookBtn = document.querySelector(".add-unread-book--btn");
+const addUnreadBookBtn = document.getElementById("add-unread-book--btn");
 const addBookForm = document.querySelector(".add-read-book--form");
+const addUnreadBookForm = document.querySelector(".add-unread-book--form");
 const closeFormBtn = document.querySelector(".form-close--btn");
+const closeUnreadFormBtn = document.querySelector(".unread-form-close--btn");
 
 class Book {
   constructor(title = "Unknown", author = "Unknown") {
@@ -72,4 +74,14 @@ addReadBookBtn.addEventListener("click", function () {
 closeFormBtn.addEventListener("click", function () {
   addBookForm.classList.remove("active");
   overlay.classList.remove("active");
+});
+
+closeUnreadFormBtn.addEventListener("click", function () {
+  addUnreadBookForm.classList.remove("active");
+  overlay.classList.remove("active");
+});
+
+addUnreadBookBtn.addEventListener("click", function () {
+  addUnreadBookForm.classList.add("active");
+  overlay.classList.add("active");
 });
