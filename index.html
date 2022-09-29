@@ -11,26 +11,40 @@
     <header class="header">
       <h1 class="main-heading">📚MyLibrary</h1>
     </header>
-    <main>
+    <main class="main">
       <div class="overlay"></div>
       <section class="read-books">
         <h2 class="container-heading">Books I've read</h2>
         <div class="read-books--container"></div>
-        <button class="add-read-book--btn">Add new book</button>
+        <button id="add-read-book--btn" class="btn">Add new book</button>
       </section>
       <section class="unread-books">
         <h2 class="container-heading">Books I want to read</h2>
         <div class="unread-books--container"></div>
-        <button class="add-unread-book--btn">Add new book</button>
+        <button id="add-unread-book--btn" class="btn">Add new book</button>
       </section>
     </main>
     <div class="add-read-book--form">
       <div class="form-close--btn">✖</div>
       <form>
-        <label id="add-read-book-title--label" for="title">Title:</label>
-        <input id="add-read-book-title--input" name="title" type="text" />
-        <label id="add-read-book-author--label" for="author">Author:</label>
-        <input id="add-read-book-author--input" name="author" type="text" />
+        <label id="add-read-book-title--label" class="form-label" for="title"
+          >Title:</label
+        >
+        <input
+          id="add-read-book-title--input"
+          class="form-input"
+          name="title"
+          type="text"
+        />
+        <label id="add-read-book-author--label" class="form-label" for="author"
+          >Author:</label
+        >
+        <input
+          id="add-read-book-author--input"
+          class="form-input"
+          name="author"
+          type="text"
+        />
         <button class="add-read-book--form--btn">Add book</button>
       </form>
     </div>
