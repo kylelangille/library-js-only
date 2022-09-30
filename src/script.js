@@ -71,6 +71,11 @@ addReadBookBtn.addEventListener("click", function () {
   overlay.classList.add("active");
 });
 
+addUnreadBookBtn.addEventListener("click", function () {
+  addUnreadBookForm.classList.add("active");
+  overlay.classList.add("active");
+});
+
 closeFormBtn.addEventListener("click", function () {
   addBookForm.classList.remove("active");
   overlay.classList.remove("active");
@@ -81,7 +86,9 @@ closeUnreadFormBtn.addEventListener("click", function () {
   overlay.classList.remove("active");
 });
 
-addUnreadBookBtn.addEventListener("click", function () {
-  addUnreadBookForm.classList.add("active");
-  overlay.classList.add("active");
-});
+const createBookCard = (book) => {
+  const bookCard = document.createElementNS("div");
+  const title = document.createElement("p");
+  const author = document.createElement("p");
+  const deleteBookBtn = document.createElement("button");
+};
