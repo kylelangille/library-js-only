@@ -7,6 +7,10 @@ const addUnreadBookForm = document.querySelector(".add-unread-book--form");
 const closeFormBtn = document.querySelector(".form-close--btn");
 const closeUnreadFormBtn = document.querySelector(".unread-form-close--btn");
 
+const readBooksGrid = document.querySelector(".read-books--container");
+
+//////////////////////////////
+//Object Structures
 class Book {
   constructor(title = "Unknown", author = "Unknown") {
     this.title = title;
@@ -21,7 +25,7 @@ class ReadLibrary {
 
   addReadBook(newReadBook) {
     if (!this.isInReadLibrary(newReadBook)) {
-      readBooks.push(newReadBook);
+      this.readBooks.push(newReadBook);
     }
   }
 
@@ -47,7 +51,7 @@ class UnreadLibrary {
 
   addUnreadBook(newUnreadBook) {
     if (!this.isInUnreadLibrary(newUnreadBook)) {
-      unreadBooks.push(newUnreadBook);
+      this.unreadBooks.push(newUnreadBook);
     }
   }
 
@@ -66,6 +70,8 @@ class UnreadLibrary {
 
 const unreadLibrary = new UnreadLibrary();
 
+///////////////////////////////////
+//Opening and closing modals
 addReadBookBtn.addEventListener("click", function () {
   addBookForm.classList.add("active");
   overlay.classList.add("active");
@@ -86,9 +92,94 @@ closeUnreadFormBtn.addEventListener("click", function () {
   overlay.classList.remove("active");
 });
 
+/////////////////////////////////////////
+//Creating book cards
 const createBookCard = (book) => {
-  const bookCard = document.createElementNS("div");
+  const bookCard = document.createElement("div");
   const title = document.createElement("p");
   const author = document.createElement("p");
   const deleteBookBtn = document.createElement("button");
+
+  bookCard.classList.add("book-card");
+  title.classList.add("book-title");
+  author.classList.add("book-author");
+  deleteBookBtn.classList.add("remove-book");
+  deleteBookBtn.onclick = removeReadBook;
+
+  title.textContent = `${book.title}`;
+  author.textContent = `${book.author}`;
+
+  bookCard.appendChild(title);
+  bookCard.appendChild(author);
+  bookCard.appendChild(deleteBookBtn);
 };
+
+const getBookFromReadBookForm = () => {
+  const readTitle = document.getElementById("read-book-title--input").value;
+  const readAuthor = document.getElementById("read-book-author--input").value;
+  return new Book(readTitle, readAuthor);
+};
+
+const getBookFromUnreadBookForm = () => {
+  const unreadTitle = document.getElementById("unread-book-title--input").value;
+  const unreadAuthor = document.getElementById(
+    "unread-book-author--input"
+  ).value;
+  return new Book(unreadTitle, unreadAuthor);
+};
+
+const updateReadBooksGrid = () => {
+  resetReadBooksGrid();
+  for (let book of readLibrary.readBooks) {
+    createBookCard(book);
+  }
+};
+
+const resetReadBooksGrid = () => {
+  readBooksGrid.innerHTML = "";
+};
+
+const updateUnreadBooksGrid = () => {
+  resetUnreadBooksGrid();
+  for (let book of unreadLibrary.unreadBooks) {
+    createBookCard(book);
+  }
+};
+
+const resetUnreadBooksGrid = () => {
+  resetUnreadBooksGrid.innerHtml = "";
+};
+
+const addReadBook = (e) => {
+  e.preventDefault();
+  const newReadBook = getBookFromReadBookForm();
+
+  if (readLibrary.isInReadLibrary(newReadBook)) {
+    alert(`You've already entered this book`);
+    return;
+  }
+  readLibrary.addReadBook(newReadBook);
+  updateReadBooksGrid();
+};
+
+const addUnreadBook = (e) => {
+  e.preventDefault();
+  const newUnreadBook = getBookFromUnreadBookForm();
+
+  if (unreadLibrary.isInUnreadLibrary(newUnreadBook)) {
+    alert("You've already entered this book");
+    return;
+  }
+};
+
+const removeReadBook = (e) => {
+  const title = e.target.parentNode.parentNode.firstChild.innerHTML.replaceAll(
+    "'",
+    ""
+  );
+
+  readLibrary.removeReadBook(title);
+  updateReadBooksGrid();
+};
+
+addBookForm.onsubmit = addReadBook;
