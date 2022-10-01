@@ -8,6 +8,7 @@ const closeFormBtn = document.querySelector(".form-close--btn");
 const closeUnreadFormBtn = document.querySelector(".unread-form-close--btn");
 
 const readBooksGrid = document.querySelector(".read-books--container");
+const unreadBooksGrid = document.querySelector(".unread-books--container");
 
 //////////////////////////////
 //Object Structures
@@ -64,7 +65,7 @@ class UnreadLibrary {
   }
 
   isInUnreadLibrary(newUnreadBook) {
-    return this.unreadBooks.come((book) => book.title === newUnreadBook.title);
+    return this.unreadBooks.some((book) => book.title === newUnreadBook.title);
   }
 }
 
@@ -104,7 +105,6 @@ const createBookCard = (book) => {
   title.classList.add("book-title");
   author.classList.add("book-author");
   deleteBookBtn.classList.add("remove-book");
-  deleteBookBtn.onclick = removeReadBook;
 
   title.textContent = `${book.title}`;
   author.textContent = `${book.author}`;
@@ -116,6 +116,29 @@ const createBookCard = (book) => {
   readBooksGrid.appendChild(bookCard);
 
   deleteBookBtn.onclick = removeReadBook;
+};
+
+const createUnreadBookCard = (book) => {
+  const bookCard = document.createElement("div");
+  const title = document.createElement("p");
+  const author = document.createElement("p");
+  const deleteBookBtn = document.createElement("button");
+
+  bookCard.classList.add("book-card");
+  title.classList.add("book-title");
+  author.classList.add("book-author");
+  deleteBookBtn.classList.add("remove-book");
+
+  title.textContent = `${book.title}`;
+  author.textContent = `${book.author}`;
+  deleteBookBtn.textContent = `Remove book`;
+
+  bookCard.appendChild(title);
+  bookCard.appendChild(author);
+  bookCard.appendChild(deleteBookBtn);
+  unreadBooksGrid.appendChild(bookCard);
+
+  deleteBookBtn.onclick = removeUnreadBook;
 };
 
 const getBookFromReadBookForm = () => {
@@ -146,12 +169,12 @@ const resetReadBooksGrid = () => {
 const updateUnreadBooksGrid = () => {
   resetUnreadBooksGrid();
   for (let book of unreadLibrary.unreadBooks) {
-    createBookCard(book);
+    createUnreadBookCard(book);
   }
 };
 
 const resetUnreadBooksGrid = () => {
-  resetUnreadBooksGrid.innerHtml = "";
+  unreadBooksGrid.innerHTML = "";
 };
 
 const addReadBook = (e) => {
@@ -164,7 +187,6 @@ const addReadBook = (e) => {
   }
   readLibrary.addReadBook(newReadBook);
   updateReadBooksGrid();
-  console.log(newReadBook);
 };
 
 const addUnreadBook = (e) => {
@@ -175,6 +197,9 @@ const addUnreadBook = (e) => {
     alert("You've already entered this book");
     return;
   }
+
+  unreadLibrary.addUnreadBook(newUnreadBook);
+  updateUnreadBooksGrid();
 };
 
 const removeReadBook = (e) => {
@@ -184,4 +209,12 @@ const removeReadBook = (e) => {
   updateReadBooksGrid();
 };
 
+const removeUnreadBook = (e) => {
+  const title = e.target.parentNode.firstChild.innerHTML.replaceAll("'", "");
+
+  unreadLibrary.removeUnreadBook(title);
+  updateUnreadBooksGrid();
+};
+
 addBookForm.onsubmit = addReadBook;
+addUnreadBookForm.onsubmit = addUnreadBook;
