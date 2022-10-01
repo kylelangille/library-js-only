@@ -108,10 +108,14 @@ const createBookCard = (book) => {
 
   title.textContent = `${book.title}`;
   author.textContent = `${book.author}`;
+  deleteBookBtn.textContent = `Remove book`;
 
   bookCard.appendChild(title);
   bookCard.appendChild(author);
   bookCard.appendChild(deleteBookBtn);
+  readBooksGrid.appendChild(bookCard);
+
+  deleteBookBtn.onclick = removeReadBook;
 };
 
 const getBookFromReadBookForm = () => {
@@ -160,6 +164,7 @@ const addReadBook = (e) => {
   }
   readLibrary.addReadBook(newReadBook);
   updateReadBooksGrid();
+  console.log(newReadBook);
 };
 
 const addUnreadBook = (e) => {
@@ -173,10 +178,7 @@ const addUnreadBook = (e) => {
 };
 
 const removeReadBook = (e) => {
-  const title = e.target.parentNode.parentNode.firstChild.innerHTML.replaceAll(
-    "'",
-    ""
-  );
+  const title = e.target.parentNode.firstChild.innerHTML.replaceAll("'", "");
 
   readLibrary.removeReadBook(title);
   updateReadBooksGrid();
