@@ -72,26 +72,35 @@ class UnreadLibrary {
 const unreadLibrary = new UnreadLibrary();
 
 ///////////////////////////////////
-//Opening and closing modals
-addReadBookBtn.addEventListener("click", function () {
+//Opening and closing forms
+
+const openAddReadBookForm = () => {
   addBookForm.classList.add("active");
   overlay.classList.add("active");
-});
+};
 
-addUnreadBookBtn.addEventListener("click", function () {
+const openUnreadBookForm = () => {
   addUnreadBookForm.classList.add("active");
   overlay.classList.add("active");
-});
+};
 
-closeFormBtn.addEventListener("click", function () {
+const closeReadForm = () => {
   addBookForm.classList.remove("active");
   overlay.classList.remove("active");
-});
+};
 
-closeUnreadFormBtn.addEventListener("click", function () {
+const closeUnreadForm = () => {
   addUnreadBookForm.classList.remove("active");
   overlay.classList.remove("active");
-});
+};
+
+closeFormBtn.addEventListener("click", closeReadForm);
+
+closeUnreadFormBtn.addEventListener("click", closeUnreadForm);
+
+addUnreadBookBtn.addEventListener("click", openUnreadBookForm);
+
+addReadBookBtn.addEventListener("click", openAddReadBookForm);
 
 /////////////////////////////////////////
 //Creating book cards
@@ -186,7 +195,9 @@ const addReadBook = (e) => {
     return;
   }
   readLibrary.addReadBook(newReadBook);
+  saveReadBooksToLocal();
   updateReadBooksGrid();
+  closeReadForm();
 };
 
 const addUnreadBook = (e) => {
@@ -200,12 +211,14 @@ const addUnreadBook = (e) => {
 
   unreadLibrary.addUnreadBook(newUnreadBook);
   updateUnreadBooksGrid();
+  closeUnreadForm();
 };
 
 const removeReadBook = (e) => {
   const title = e.target.parentNode.firstChild.innerHTML.replaceAll("'", "");
 
   readLibrary.removeReadBook(title);
+  saveReadBooksToLocal();
   updateReadBooksGrid();
 };
 
@@ -218,3 +231,25 @@ const removeUnreadBook = (e) => {
 
 addBookForm.onsubmit = addReadBook;
 addUnreadBookForm.onsubmit = addUnreadBook;
+
+////////////////////////////////
+//Save to local storage
+
+const saveReadBooksToLocal = () => {
+  localStorage.setItem("readLibrary", JSON.stringify(readLibrary.readBooks));
+};
+
+const restoreReadBooksFromLocal = () => {
+  const readBooks = JSON.parse(localStorage.getItem("readLibrary"));
+  if (readBooks) {
+    readLibrary.readBooks = readBooks.map((book) => JSONToBook(book));
+  } else {
+    readLibrary.readBooks = [];
+  }
+};
+
+const JSONToBook = (book) => {
+  return new Book(book.title, book.author);
+};
+
+window.addEventListener("load", restoreReadBooksFromLocal);
